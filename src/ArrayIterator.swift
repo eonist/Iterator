@@ -7,7 +7,7 @@ import Foundation
  */
 open class ArrayIterator<T> {
    var index: Int = 0
-   var collection: Array<T>
+   public var collection: Array<T>
    public init(array: Array<T>) {
       self.collection = array
    }
