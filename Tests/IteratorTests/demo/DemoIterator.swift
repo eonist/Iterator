@@ -1,5 +1,5 @@
 import Foundation
-import IteratorIOS
+import Iterator
 /**
  * Demonstrates async iterator
  */
