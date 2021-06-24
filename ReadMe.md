@@ -10,6 +10,7 @@ This iterator class can be used for iterating simple arrays, or handle async loc
 ### Weaknesses:
 - Unable to add new items while iterating (use Queue design for that)
 - Does not remove items after they are consumed etc (use Queue design for that)
+- Does not autostart when new items are added, Use Queue for that  (see CueKit project)
 
 ### How do I get it
 - Carthage `github "eonist/Iterator"`
