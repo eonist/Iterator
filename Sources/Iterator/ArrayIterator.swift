@@ -1,7 +1,8 @@
 import Foundation
 /**
- * ## EXAMPLES:
- * var arrIterator = ArrayIterator(array:[1,2,3,4,5])
+ * - Note: The methods cant be in an extension because of generic requirement
+ * ## Examples:
+ * var arrIterator = ArrayIterator(array: [1, 2, 3, 4, 5])
  * while arrIterator.hasNext() {Swift.print(arrIterator.next())}//1,2,3,4,5
  * - Fixme: ⚠️️ make the ReverseArrayIterator...see notes
  */

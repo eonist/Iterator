@@ -4,9 +4,14 @@ import Iterator
  * Demonstrates async iterator
  */
 class DemoIterator: ArrayIterator<DemoItem> {
-    var complete: Completed
-    init(array: [DemoItem], onComplete:@escaping Completed) {
-        self.complete = onComplete
-        super.init(array: array)
-    }
+   var complete: Completed
+   /**
+    * - Parameters:
+    *   - array: items
+    *   - onComplete: complete callback
+    */
+   init(array: [DemoItem], onComplete:@escaping Completed) {
+      self.complete = onComplete
+      super.init(array: array)
+   }
 }
