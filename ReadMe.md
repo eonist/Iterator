@@ -13,9 +13,7 @@ This iterator class can be used for iterating simple arrays, or handle async loc
 - Does not autostart when new items are added, Use Queue for that  (see CueKit project)
 
 ### How do I get it
-- Carthage `github "eonist/Iterator"`
-- Manual Open `.xcodeproj`
-- CocoaPod (Coming soon)
+- SPM `"https://github.com/eonist/Iterator"`
 
 ### Basic Example:
 ```swift
