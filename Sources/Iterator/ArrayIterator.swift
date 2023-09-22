@@ -1,17 +1,37 @@
 import Foundation
 /**
- * - Note: The methods cant be in an extension because of generic requirement
+ * This class provides an iterator for an array of elements of type `T`.
+ * - Note: The methods cannot be in an extension because of generic requirements.
  * ## Examples:
  * var arrIterator = ArrayIterator(array: [1, 2, 3, 4, 5])
- * while arrIterator.hasNext() {Swift.print(arrIterator.next())}//1,2,3,4,5
- * - Fixme: ⚠️️ make the ReverseArrayIterator...see notes
+ * while arrIterator.hasNext() {
+ *     Swift.print(arrIterator.next())
+ * }
+ * // Output: 1, 2, 3, 4, 5
+ * - Fixme: ⚠️️ Make the `ReverseArrayIterator` class to iterate over the array in reverse order.
  */
 open class ArrayIterator<T> {
+   /**
+    * The index of the current element in the collection.
+    */
    var index: Int = 0
+   /**
+    * The collection to iterate over.
+    */
    public var collection: [T]
+   /**
+    * Initializes a new instance of the `ArrayIterator` class with the specified array.
+    *
+    * - Parameter array: The array to iterate over.
+    */
    public init(array: [T]) {
       self.collection = array
    }
+   /**
+    * Returns a Boolean value indicating whether there are more elements to iterate over.
+    *
+    * - Returns: `true` if there are more elements to iterate over; otherwise, `false`.
+    */
    public func hasNext() -> Bool {
       return index < collection.count
    }
@@ -23,10 +43,14 @@ open class ArrayIterator<T> {
       index += 1
       return retVal
    }
+   /**
+    * Resets the iterator to the beginning of the collection.
+    */
    public func reset() {
       index = 0
    }
 }
+// Extends the `ArrayIterator` class to conform to the `Iteratable` protocol.
 extension ArrayIterator: Iteratable {}
 
 //let arrIterator = ArrayIterator(array:[1,2,3,4,5])
