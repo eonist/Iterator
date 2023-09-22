@@ -24,15 +24,17 @@ final class IteratorTests: XCTestCase {
  */
 extension IteratorTests {
    /**
-    * Add items to a list if they succeed etc
+    * Begins iterating through the items in the DemoIterator instance and adds valid items to the validItems array.
+    * If an item is valid, it is added to the validItems array and the iteration continues.
+    * If an item is invalid, the iteration continues without adding the item to the validItems array.
     */
    private func beginIterating() {
       arrIterator.iterate { [weak self] (_ item: DemoItem, _ success: Bool) in
          if success {
             self?.validItems.append(item)
-            self?.beginIterating()
+            self?.beginIterating() // Continue iterating through the items
          } else {
-            self?.beginIterating()
+            self?.beginIterating() // Continue iterating through the items
          }
       }
    }

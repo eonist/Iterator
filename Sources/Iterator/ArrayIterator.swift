@@ -14,7 +14,7 @@ open class ArrayIterator<T> {
    /**
     * The index of the current element in the collection.
     */
-   var index: Int = 0
+   public var index: Int = 0
    /**
     * The collection to iterate over.
     */

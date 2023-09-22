@@ -1,17 +1,22 @@
 import Foundation
 import Iterator
 /**
- * Demonstrates async iterator
+ * A custom iterator that iterates through an array of DemoItem objects and calls a completion handler when done.
  */
 class DemoIterator: ArrayIterator<DemoItem> {
    var complete: Completed
+
    /**
+    * Initializes a new instance of the DemoIterator class.
+    *
     * - Parameters:
-    *   - array: items
-    *   - onComplete: complete callback
+    *   - array: The array of DemoItem objects to iterate through.
+    *   - onComplete: The completion handler to call when the iteration is done.
     */
    init(array: [DemoItem], onComplete:@escaping Completed) {
-      self.complete = onComplete
+      // Call the parent class's initializer with the given array
       super.init(array: array)
+      // Set the completion handler for the iterator
+      self.complete = onComplete
    }
 }

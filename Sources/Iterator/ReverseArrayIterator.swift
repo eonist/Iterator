@@ -15,9 +15,9 @@ open class ReverseArrayIterator<T>: ArrayIterator<T> {
      * - Returns: The previous element in the collection.
      */
     func prev() -> T {
-        index -= 1
-        let retVal = collection[index]/*cur item*/
-        return retVal
+        index -= 1 // Move the index back by one to get the previous item
+        let retVal = collection[index] // Get the current item at the new index
+        return retVal // Return the current item
     }
 }
 // Extends the `ReverseArrayIterator` class to conform to the `Reversable` protocol.

@@ -1,24 +1,49 @@
 # Iterator
 
-This iterator class can be used for iterating simple arrays, or handle async local / remote services. 
+This iterator class is designed to handle both simple arrays and async local/remote services. It provides powerful iteration capabilities, allowing you to move forward and backward through your data with ease. 
 
-### How does it work
-- Async iteration
-- Supports forward and backward iteration
-- Works on regular Arrays etc
+### How it Works
+- Supports async iteration
+- Allows for forward and backward iteration
+- Works with regular arrays and other data types
 
-### Weaknesses:
-- Unable to add new items while iterating (use Queue design for that)
-- Does not remove items after they are consumed etc (use Queue design for that)
-- Does not autostart when new items are added, Use Queue for that  (see CueKit project)
+### Limitations:
+- Cannot add new items while iterating (use a queue design for that)
+- Does not remove items after they are consumed (use a queue design for that)
+- Does not automatically start when new items are added (see the CueKit project for a solution)
 
-### How do I get it
-- SPM `"https://github.com/eonist/Iterator"`
+## Getting Started
+To use the Iterator class in your project, simply install it using SPM:
+
+### Usage
+To use the Iterator class, simply create an instance of the class and pass in the data you want to iterate over. You can then use the next() and previous() methods to move forward and backward through the data.
+
+### Design
+The Iterator class is designed to be simple and easy to use, while still providing powerful iteration capabilities. It is implemented using a simple state machine that keeps track of the current position in the data, and provides methods for moving forward and backward through the data.
+
+```swift
+.package(url: "https://github.com/eonist/Iterator")
+``````
 
 ### Basic Example:
 ```swift
-let arrIterator = ArrayIterator(array: [1,2,3,4,5])
-while arrIterator.hasNext() { Swift.print(arrIterator.next()) }//1,2,3,4,5
+let data = [1, 2, 3, 4, 5]
+let iterator = Iterator(data: data)
+
+while let item = iterator.next() {
+    print(item)
+}
+```
+
+The Iterator class also supports async iteration, making it easy to handle local and remote services that return data asynchronously.
+
+```swift
+let service = MyService()
+let iterator = Iterator(async: service.getData())
+
+while let item = await iterator.next() {
+    print(item)
+}
 ```
 
 ### Async Example:
@@ -78,6 +103,9 @@ public class DemoIteratorExample {
    }
 }
 ```
+
+### Contributing
+If you would like to contribute to the Iterator project, please feel free to submit bug reports, feature requests, and pull requests. We welcome contributions from developers of all skill levels, and are committed to maintaining a welcoming and inclusive community.
 
 ### Todo:
 - Add the new native swift result type
