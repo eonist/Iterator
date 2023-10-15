@@ -6,7 +6,7 @@ let package = Package(
     products: [
         .library(
             name: "Iterator",
-            targets: ["Iterator"]),
+            targets: ["Iterator"])
     ],
     dependencies: [],
     targets: [
@@ -15,6 +15,6 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "IteratorTests",
-            dependencies: ["Iterator"]),
+            dependencies: ["Iterator"])
     ]
 )

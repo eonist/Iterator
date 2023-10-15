@@ -33,7 +33,7 @@ open class ArrayIterator<T> {
     * - Returns: `true` if there are more elements to iterate over; otherwise, `false`.
     */
    public func hasNext() -> Bool {
-      return index < collection.count
+      index < collection.count
    }
    /**
     * Returns current item

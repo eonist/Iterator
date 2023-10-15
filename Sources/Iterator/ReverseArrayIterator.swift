@@ -8,7 +8,7 @@ open class ReverseArrayIterator<T>: ArrayIterator<T> {
      * - Returns: `true` if there is a previous element to iterate over; otherwise, `false`.
      */
     func hasPrev() -> Bool {
-        return index > 0
+        index > 0
     }
     /**
      * Returns the previous element in the collection.

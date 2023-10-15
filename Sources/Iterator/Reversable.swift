@@ -5,14 +5,13 @@ import Foundation
  * - Fixme: ⚠️️ Consider renaming this protocol to `ReverseIteratable`.
  */
 protocol Reversable: Iteratable {
-    
     /**
      * Returns a Boolean value indicating whether there is a previous element to iterate over.
      *
      * - Returns: `true` if there is a previous element to iterate over; otherwise, `false`.
      */
     func hasPrev() -> Bool
-    
+
     /**
      * Returns the previous element in the collection.
      *
