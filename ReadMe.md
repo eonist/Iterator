@@ -109,3 +109,4 @@ If you would like to contribute to the Iterator project, please feel free to sub
 
 ### Todo:
 - Add the new native swift result type
+- Ask copilot for improvments
