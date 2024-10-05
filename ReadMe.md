@@ -1,3 +1,5 @@
+[![Tests](https://github.com/eonist/Iterator/actions/workflows/Tests.yml/badge.svg)](https://github.com/eonist/Iterator/actions/workflows/Tests.yml)
+
 # Iterator
 
 This iterator class is designed to handle both simple arrays and async local/remote services. It provides powerful iteration capabilities, allowing you to move forward and backward through your data with ease. 
