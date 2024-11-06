@@ -11,7 +11,7 @@ class DemoIterator: ArrayIterator<DemoItem> {
     *   - array: The array of DemoItem objects to iterate through
     *   - onComplete: The completion handler to call when the iteration is done
     */
-   init(array: [DemoItem], onComplete:@escaping Completed) {
+   init(array: [DemoItem], onComplete: @escaping Completed) {
       // Set the completion handler for the iterator
       self.complete = onComplete
       // Call the parent class's initializer with the given array

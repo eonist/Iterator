@@ -9,7 +9,7 @@ extension DemoIterator {
     * The callback function takes a DemoItem and a boolean value as arguments and returns nothing.
     * The boolean value indicates whether the work was successful or not.
     */
-   func iterate(callBack:@escaping Callback) {
+   func iterate(callBack: @escaping Callback) {
       Swift.print("iterate")
       if hasNext() { // Check if there is a next item in the iterator
          let item: DemoItem = next() // Get the next item in the iterator
