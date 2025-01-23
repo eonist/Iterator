@@ -29,6 +29,8 @@ The Iterator class is designed to be simple and easy to use, while still providi
 
 ### Basic Example:
 ```swift
+import Iterator
+
 let data = [1, 2, 3, 4, 5]
 let iterator = Iterator(data: data)
 
@@ -40,6 +42,8 @@ while let item = iterator.next() {
 The Iterator class also supports async iteration, making it easy to handle local and remote services that return data asynchronously.
 
 ```swift
+import Iterator
+
 let service = MyService()
 let iterator = Iterator(async: service.getData())
 
@@ -105,10 +109,220 @@ public class DemoIteratorExample {
    }
 }
 ```
+**Basic Forward Iteration Example:**
+```swift
+import Iterator
 
-### Contributing
-If you would like to contribute to the Iterator project, please feel free to submit bug reports, feature requests, and pull requests. We welcome contributions from developers of all skill levels, and are committed to maintaining a welcoming and inclusive community.
+let data = [1, 2, 3, 4, 5]
+let iterator = ArrayIterator(array: data)
+
+while iterator.hasNext() {
+    let item = iterator.next()
+    print(item)
+}
+```
+
+**Reverse Iteration Example:**
+```swift
+import Iterator
+
+let data = [1, 2, 3, 4, 5]
+let reverseIterator = ReverseArrayIterator(array: data)
+
+while reverseIterator.hasPrev() {
+    let item = reverseIterator.prev()
+    print(item)
+}
+```
+
+**Detail Async Iteration:**
+
+```swift
+import Iterator
+
+let service = YourAsyncService()
+let iterator = Iterator(asyncSequence: service.fetchData())
+
+Task {
+    while let item = await iterator.next() {
+        print(item)
+    }
+}
+```
+
+**Custom Iterator Example:**
+```swift
+import Iterator
+
+class CustomIterator: ArrayIterator<CustomType> {
+    // Custom implementation or additional methods
+}
+```
 
 ### Todo:
 - Add the new native swift result type
 - Ask copilot for improvments
+- Conform to Swift's Standard Protocols
+Instead of defining your own Iteratable protocol, you can conform your iterator to Swift's built-in Sequence and IteratorProtocol protocols. This allows your iterator to be used seamlessly with Swift's standard library features, like for-in loops.
+Updated ArrayIterator:
+
+```swift
+ /// An iterator over an array that provides sequential access to its elements.
+open class ArrayIterator<T>: IteratorProtocol, Sequence {
+    private var index: Int = 0
+    public var collection: [T]
+
+    public init(array: [T]) {
+        self.collection = array
+    }
+
+    public func next() -> T? {
+        guard index < collection.count else { return nil }
+        defer { index += 1 }
+        return collection[index]
+    }
+
+    public func reset() {
+        index = 0
+    }
+}
+let iterator = ArrayIterator(array: [1, 2, 3, 4, 5])
+for element in iterator {
+    print(element)
+}
+```
+
+- Refactor Reversible Iterator
+Correct the spelling of Reversable to Reversible and conform it to Sequence. Implement bidirectional iteration by adopting the BidirectionalCollection protocol if appropriate.
+
+```swift
+open class ReverseArrayIterator<T>: IteratorProtocol, Sequence {
+    private var index: Int
+    public var collection: [T]
+
+    public init(array: [T]) {
+        self.collection = array
+        self.index = array.count - 1
+    }
+
+    public func next() -> T? {
+        guard index >= 0 else { return nil }
+        defer { index -= 1 }
+        return collection[index]
+    }
+
+    public func reset() {
+        index = collection.count - 1
+    }
+}
+```
+
+- Utilize Swift's Result Type for Async Operations
+Enhance your asynchronous code by using Swift's Result type for better error handling.
+
+```swift
+func iterate(completion: @escaping (Result<DemoItem, Error>) -> Void) {
+    if hasNext {
+        let item = next()
+        DispatchQueue.global(qos: .background).async {
+            // Simulate asynchronous work
+            sleep(2)
+            let success = Bool.random()
+            if success {
+                completion(.success(item))
+            } else {
+                completion(.failure(DemoError.operationFailed))
+            }
+        }
+    } else {
+        complete()
+    }
+}
+
+enum DemoError: Error {
+    case operationFailed
+}
+```
+
+- Adopt async/await for Asynchronous Code
+Refactor your asynchronous functions to use Swift's async/await syntax for cleaner and more readable code.
+
+```swift
+func iterate() async {
+    while hasNext {
+        let item = next()
+        do {
+            try await performAsyncWork(with: item)
+            print("Processed item successfully.")
+        } catch {
+            print("Failed to process item: \(error)")
+        }
+    }
+    complete()
+}
+
+func performAsyncWork(with item: DemoItem) async throws {
+    // Simulate async work
+    try await Task.sleep(nanoseconds: 2 * 1_000_000_000)
+    let success = Bool.random()
+    if !success {
+        throw DemoError.operationFailed
+    }
+}
+```
+
+- Improve Naming Conventions
+Correct misspellings and improve naming for better code clarity.
+Rename Iteratable to Iterable.
+Rename Reversable to Reversible.
+Use descriptive variable names instead of single letters.
+
+- Update Unit Tests to Cover Edge Cases
+Ensure your tests cover various scenarios, including empty collections, single-element collections, and error handling in asynchronous operations.
+Example Test Case:
+
+```swift
+func testEmptyIterator() {
+    let emptyIterator = ArrayIterator<Int>(array: [])
+    XCTAssertFalse(emptyIterator.hasNext)
+    XCTAssertNil(emptyIterator.next())
+}
+```
+
+- Refactor DemoIterator for Clarity
+Separate concerns by decoupling the iteration logic from the asynchronous operation handling.
+Refactored DemoIterator:
+
+```swift
+import Iterator
+
+class DemoIterator: ArrayIterator<DemoItem> {
+    private let complete: Completed
+
+    init(array: [DemoItem], onComplete: @escaping Completed) {
+        self.complete = onComplete
+        super.init(array: array)
+    }
+
+    func iterate() async {
+        while hasNext {
+            let item = next()
+            do {
+                try await process(item)
+                print("Processed item successfully.")
+            } catch {
+                print("Failed to process item: \(error)")
+            }
+        }
+        complete()
+    }
+
+    private func process(_ item: DemoItem) async throws {
+        try await Task.sleep(nanoseconds: 2 * 1_000_000_000)
+        let success = Bool.random()
+        if !success {
+            throw DemoError.operationFailed
+        }
+    }
+}
+```
